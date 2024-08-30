@@ -4,13 +4,19 @@ import * as fs from "fs";
 import path from "path";
 
 function createIfNotExists(filePath: string): void {
+  if (!fs.existsSync(dataDirectory)) {
+    fs.mkdirSync(dataDirectory, { recursive: true });
+  }
+
   if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, "[]");
+      fs.writeFileSync(filePath, "[]");
   }
 }
 
+const dataDirectory: string = path.join(process.cwd(), "data");
+
 function filePath(entityName: string): string {
-   return path.join(process.cwd(), 'data', `${entityName}.json`);
+  return path.join(dataDirectory, `${entityName}.json`);
 }
 
 function saveData<T>(entities: T[], entityName: string) : Promise<boolean> {

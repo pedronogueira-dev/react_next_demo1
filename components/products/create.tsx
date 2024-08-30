@@ -1,11 +1,20 @@
-"use client"
+"use client";
+
 import * as Form from "@radix-ui/react-form";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { NewProductDto } from "@/types/products/product";
 import { createProduct } from "@/services/products/main/productsService";
 
-export default function ProductDetailsView() {
+
+interface Props {
+  redirectUrl?: string,
+  redirectCallback?: () => void
+}
+
+export default function ProductCreateForm({ redirectUrl = "", redirectCallback = () => {}} : Props) {
+  const router = useRouter();
   const [serverErrors, setServerErrors] = useState({ name: false });
   return (
     <Form.Root
@@ -14,11 +23,19 @@ export default function ProductDetailsView() {
         const formObj = new FormData(event.currentTarget);
 
         const newProduct: NewProductDto = {
-          name: formObj.get('name')?.toString() ?? ''
+          name: formObj.get("name")?.toString() ?? "",
+          stock: parseInt(formObj.get("stock")?.toString() ?? '0') ,
         };
         // Submit form data and catch errors in the response
         createProduct(newProduct)
-          .then(() => {})
+          .then(() => {
+            if(!redirectUrl) {
+              return
+            }
+
+            router.push(redirectUrl);
+            redirectCallback();
+          })
           /**
            * Map errors from your server response into a structure you'd like to work with.
            * In this case resulting in this object: `{ email: false, password: true }`
@@ -30,9 +47,7 @@ export default function ProductDetailsView() {
         // prevent default form submission
         event.preventDefault();
       }}
-      onClearServerErrors={() =>
-        setServerErrors({ name: false })
-      }
+      onClearServerErrors={() => setServerErrors({ name: false })}
     >
       <Form.Field className="FormField" name="name">
         <div
@@ -49,6 +64,15 @@ export default function ProductDetailsView() {
         </div>
         <Form.Control asChild>
           <textarea className="Textarea" required />
+        </Form.Control>
+      </Form.Field>
+      <Form.Field className="FormField" name="stock">
+        <Form.Label className="FormLabel">Available Stock</Form.Label>
+          <Form.Message className="FormMessage" match="valueMissing">
+            Please enter the product's stock
+          </Form.Message>
+        <Form.Control asChild>
+          <input type={"number"} step={1} min={0 }/>
         </Form.Control>
       </Form.Field>
       <Form.Submit asChild>

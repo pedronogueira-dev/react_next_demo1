@@ -1,0 +1,41 @@
+[
+    {
+        "id": "b3873093-ff08-4a11-bdf7-c9e3b31ceebe",
+        "name": "test2",
+        "stock": 1
+    },
+    {
+        "id": "00ed2cec-75d0-415c-8685-c8c547afa346",
+        "name": "test3",
+        "stock": 10
+    },
+    {
+        "id": "db3156e0-52c6-4b05-9381-02f39a95bdec",
+        "name": "1231232"
+    },
+    {
+        "id": "eae9c0e8-67a2-40da-a727-15ea83e96bcb",
+        "name": "12",
+        "stock": 2122
+    },
+    {
+        "id": "1f7927de-4899-4271-894c-e4304e145b8e",
+        "name": "test123",
+        "stock": 1
+    },
+    {
+        "id": "f003d8d7-6121-4f04-9859-0bbb21bbe45e",
+        "name": "t",
+        "stock": 1
+    },
+    {
+        "id": "623a680d-9493-4bde-add4-c353642ce2ed",
+        "name": "test",
+        "stock": 12
+    },
+    {
+        "id": "1aad8855-6dc4-4007-8b5d-dc79357d0ee1",
+        "name": "test",
+        "stock": 12
+    }
+]
